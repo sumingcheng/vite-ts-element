@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from "vue-router";
+import type { RouteRecordRaw } from 'vue-router'
 
 export const userRoutes: RouteRecordRaw[] = [
   {
@@ -7,8 +7,8 @@ export const userRoutes: RouteRecordRaw[] = [
     children: [
       {
         path: 'login',
-        component: () => import('@/views/user/index.vue')
-      }
-    ]
+        component: () => import('@/views/user/index.vue'),
+      },
+    ],
   },
 ]
