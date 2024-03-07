@@ -1,18 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { userRoutes } from "@/router/user.ts";
-import Layout from '@/layout/index.vue';
-// 一级路由
+import { rootRoutes } from "@/router/root.ts";
+
 const routes = [
-  {
-    path: '/',
-    component: Layout,
-    children: [
-      {
-        path: '',
-        component: () => import('@/views/index/index.vue'),
-      },
-    ],
-  },
+  ...rootRoutes,
   ...userRoutes
 ]
 
