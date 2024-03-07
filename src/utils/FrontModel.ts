@@ -5,7 +5,7 @@ import _ from 'lodash'
 enum ServerPropertyType {
   NORMAL = 'normal',
   ARRAY = 'array',
-  OBJECT = 'object'
+  OBJECT = 'object',
 }
 
 // 请求数据类型
@@ -22,32 +22,28 @@ export interface IHttpBindNormal {
 }
 
 // 普通属性绑定函数
-export const HttpBindNormal = (serverPropertyPath?: string) => {
+export function HttpBindNormal(serverPropertyPath?: string) {
   return defineMetadataForBinding(ServerPropertyType.NORMAL, serverPropertyPath)
 }
 
 // 数组属性绑定函数
-export const HttpBindArray = (serverPropertyPath: string, createItemFunction?: string) => {
+export function HttpBindArray(serverPropertyPath: string, createItemFunction?: string) {
   return defineMetadataForBinding(ServerPropertyType.ARRAY, serverPropertyPath, createItemFunction)
 }
 
 // 对象属性绑定函数
-export const HttpBindObject = (serverPropertyPath: string, createItemFunction?: string) => {
+export function HttpBindObject(serverPropertyPath: string, createItemFunction?: string) {
   return defineMetadataForBinding(ServerPropertyType.OBJECT, serverPropertyPath, createItemFunction)
 }
 
 // 辅助函数：为属性定义元数据，减少重复代码
-const defineMetadataForBinding = (
-  serverPropertyTypeName: ServerPropertyType,
-  serverPropertyPath?: string,
-  createItemFunction?: string
-) => {
+function defineMetadataForBinding(serverPropertyTypeName: ServerPropertyType, serverPropertyPath?: string, createItemFunction?: string) {
   return (target: object, propertyName: string) => {
     const metaValue: IHttpBindNormal = {
       serverPropertyTypeName,
       serverPropertyPath: serverPropertyPath || propertyName,
       propertyName,
-      createItemFunction
+      createItemFunction,
     }
     Reflect.defineMetadata(propertyName, metaValue, target) // 使用元数据API定义属性
   }
@@ -76,9 +72,9 @@ export abstract class FrontModel {
     const resValue = _.get(res, metadataValue.serverPropertyPath)
     switch (metadataValue.serverPropertyTypeName) {
       case ServerPropertyType.NORMAL:
-        if (resValue) {
+        if (resValue)
           _.set(this, metadataValue.propertyName, resValue)
-        }
+
         break
       case ServerPropertyType.ARRAY:
         this.handleArrayResponse(metadataValue, resValue)
@@ -132,14 +128,14 @@ export abstract class FrontModel {
             _.set(
               requestBody,
               metadataValue.serverPropertyPath,
-              propertyValue.map(item => item.getRequestBody())
+              propertyValue.map(item => item.getRequestBody()),
             )
           }
           break
         case ServerPropertyType.OBJECT:
-          if (propertyValue) {
+          if (propertyValue)
             _.set(requestBody, metadataValue.serverPropertyPath, propertyValue.getRequestBody())
-          }
+
           break
       }
     })
