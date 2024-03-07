@@ -1,14 +1,14 @@
+<script setup lang="ts">
+import { Notebook } from '@element-plus/icons-vue'
+</script>
+
 <template>
   <div>
     <el-icon>
-      <Notebook/>
+      <Notebook />
     </el-icon>
   </div>
 </template>
-
-<script setup lang="ts">
-import { Notebook } from "@element-plus/icons-vue";
-</script>
 
 <style lang="less" scoped>
 
