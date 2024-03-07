@@ -1,5 +1,5 @@
+import path from 'node:path'
 import { defineConfig } from 'vite'
-import path from 'path';
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -11,12 +11,12 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  proxy: {
-    // 配置代理，这对于 API 请求转发到后端服务器特别有用
-    '/api': 'http://localhost:3000',
-  },
+  // proxy: {
+  //   // 配置代理，这对于 API 请求转发到后端服务器特别有用
+  //   '/api': 'http://localhost:3000',
+  // },
   build: {
-    minify: 'esbuild'
+    minify: 'esbuild',
   },
   plugins: [
     vue(),
@@ -30,6 +30,6 @@ export default defineConfig({
     }),
   ],
   esbuild: {
-    target: 'esnext'
-  }
+    target: 'esnext',
+  },
 })
