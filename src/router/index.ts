@@ -1,10 +1,10 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import { userRoutes } from "@/router/user.ts";
-import { rootRoutes } from "@/router/root.ts";
+import { createRouter, createWebHistory } from 'vue-router'
+import { userRoutes } from '@/router/user.ts'
+import { rootRoutes } from '@/router/root.ts'
 
 const routes = [
   ...rootRoutes,
-  ...userRoutes
+  ...userRoutes,
 ]
 
 const router = createRouter({
@@ -12,4 +12,4 @@ const router = createRouter({
   routes,
 })
 
-export default router;
+export default router
