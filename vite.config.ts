@@ -12,11 +12,11 @@ export default defineConfig({
     },
   },
   // proxy: {
-  //   // 配置代理，这对于 API 请求转发到后端服务器特别有用
   //   '/api': 'http://localhost:3000',
   // },
   build: {
     minify: 'esbuild',
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks(id) {
