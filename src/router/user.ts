@@ -1,7 +1,6 @@
 import { RouteRecordRaw } from "vue-router";
 
-// 二级路由
-export const userRoutes: RouteRecordRaw = [
+export const userRoutes: RouteRecordRaw[] = [
   {
     path: '/user',
     // component: Login,
