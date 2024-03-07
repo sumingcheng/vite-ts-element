@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+run_check() {
+  command_name="$1"
+  success_message="$2"
+  fail_message="$3"
+
+  if $command_name; then
+    printf "\033[32m%s\033[0m\n" "$success_message"
+  else
+    printf "\033[31m%s\033[0m\n" "$fail_message"
+    exit 1
+  fi
+}
+
+run_check "npm run lint" "ESLint check successful" "ESLint check failed!"
+run_check "npm run stylelint" "Stylelint check successful" "Stylelint check failed!"
