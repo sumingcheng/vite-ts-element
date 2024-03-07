@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useI18nEnhanced } from '@/hooks/useI18nEnhanced.ts'
 
 const { t, changeLanguage, currentLocale } = useI18nEnhanced()
