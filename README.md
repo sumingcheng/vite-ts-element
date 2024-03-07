@@ -10,3 +10,6 @@
 ## 插件
 1. unplugin-auto-import 导入 API
 2. unplugin-vue-components 导入组件
+
+## 兼容性
+1. 如果需要兼容 IE11，需要安装 `@vitejs/plugin-legacy` 插件
