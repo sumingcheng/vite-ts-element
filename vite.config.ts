@@ -11,9 +11,17 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  // proxy: {
-  //   '/api': 'http://localhost:3000',
-  // },
+  server: {
+    host: true,
+    strictPort: true,
+    proxy: {
+      '/api': {
+        target: 'http://172.40.253.155:9999/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
+  },
   build: {
     minify: 'esbuild',
     chunkSizeWarningLimit: 1000,
