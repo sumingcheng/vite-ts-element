@@ -1,6 +1,6 @@
 export interface TranslationSchema {
   message: {
-    home: string,
+    home: string
     about: string
   }
 }
