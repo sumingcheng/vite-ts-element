@@ -72,8 +72,9 @@ export abstract class FrontModel {
     const resValue = _.get(res, metadataValue.serverPropertyPath)
     switch (metadataValue.serverPropertyTypeName) {
       case ServerPropertyType.NORMAL:
-        if (resValue)
+        if (resValue) {
           _.set(this, metadataValue.propertyName, resValue)
+        }
 
         break
       case ServerPropertyType.ARRAY:
@@ -133,8 +134,9 @@ export abstract class FrontModel {
           }
           break
         case ServerPropertyType.OBJECT:
-          if (propertyValue)
+          if (propertyValue) {
             _.set(requestBody, metadataValue.serverPropertyPath, propertyValue.getRequestBody())
+          }
 
           break
       }
