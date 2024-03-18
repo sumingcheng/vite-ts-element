@@ -5,7 +5,7 @@
     "module": "ESNext",
     "lib": [
       "ES2020",
-      "DOM",
+      "DOM"
     ],
     "skipLibCheck": true,
     /* Bundler mode */
@@ -22,7 +22,9 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     }
   },
   "include": [

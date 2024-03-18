@@ -1,20 +1,26 @@
 {
   "name": "llm-application-pc",
-  "version": "0.0.1",
   "type": "module",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "npm-run-all -s tsc vite zip",
+    "tsc": "vue-tsc",
+    "vite": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "prepare": "husky install",
+    "zip": "node --loader ts-node/esm config/zip.ts"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
+    "@types/archiver": "^6.0.2",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.24",
     "@types/qs": "^6.9.12",
+    "archiver": "^7.0.1",
     "autoprefixer": "^10.4.18",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
@@ -28,6 +34,7 @@
     "postcss": "^8.4.35",
     "qs": "^6.12.0",
     "reflect-metadata": "^0.2.1",
+    "ts-node": "^10.9.2",
     "vue": "^3.4.19",
     "vue-i18n": "^9.9.0",
     "vue-router": "^4.3.0"
