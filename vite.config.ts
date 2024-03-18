@@ -38,7 +38,7 @@ export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
-      imports: ['vue'],
+      imports: ['vue', 'vue-router', '@vueuse/core', 'pinia'],
       dts: 'types/auto-imports.d.ts',
     }),
     Components({

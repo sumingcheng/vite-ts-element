@@ -11,14 +11,6 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  // 刷新时，滚动条位置还原
-  // scrollBehavior(to, from, savedPosition) {
-  //   if (savedPosition) {
-  //     return savedPosition
-  //   } else {
-  //     return { top: 0 }
-  //   }
-  // },
 })
 
 export default router
