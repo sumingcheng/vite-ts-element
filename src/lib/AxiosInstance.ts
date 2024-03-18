@@ -1,7 +1,7 @@
 import type { AxiosInstance } from 'axios'
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
-import cookies from '@/lib/Cookies.ts'
+import storage from '@/lib/Storage.ts'
 
 const commonHeaders = {
   'Content-Type': 'application/json;charset=UTF-8',
@@ -17,9 +17,9 @@ const axiosInstance: AxiosInstance = axios.create({
 // 请求拦截器
 axiosInstance.interceptors.request.use(
   (config) => {
-    const userToken = cookies.get('token')
+    const userToken = storage.get('token')
     if (userToken) {
-      config.headers.Authorization = `${userToken}`
+      config.headers.Authorization = `Bearer ${userToken}`
     }
     return config
   },

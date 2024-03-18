@@ -16,10 +16,14 @@
 | 1  | unplugin-auto-import    | 导入 API |
 | 2  | unplugin-vue-components | 导入组件   |
 
-## eslint
+## ESLint
 
 - 请开启 `eslint` 插件，以便在编辑器中实时检查代码风格。
 - 请设置保存时或者提交时自动触发 `lint`
+
+## commitLint
+
+- 参考 husky/commit-msg 的内容
 
 ## 约定规则
 
