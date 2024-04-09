@@ -11,9 +11,17 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  // proxy: {
-  //   '/api': 'http://localhost:3000',
-  // },
+  server: {
+    host: true,
+    strictPort: true,
+    proxy: {
+      '/api': {
+        target: 'https://jsonplaceholder.typicode.com/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
+  },
   build: {
     minify: 'esbuild',
     chunkSizeWarningLimit: 1000,
@@ -30,7 +38,7 @@ export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
-      imports: ['vue'],
+      imports: ['vue', 'vue-router', '@vueuse/core', 'pinia'],
       dts: 'types/auto-imports.d.ts',
     }),
     Components({
