@@ -24,13 +24,15 @@ axiosInstance.interceptors.request.use(
 // 响应拦截器
 axiosInstance.interceptors.response.use(
   (response) => {
-    if (!response.data)
+    if (!response.data) {
       throw new Error('无效的响应数据')
+    }
     return response.data
   },
   (error: AxiosError) => {
-    if (error.code === 'ECONNABORTED')
+    if (error.code === 'ECONNABORTED') {
       ElMessage.warning('请求超时，请稍后重试')
+    }
 
     // 其他错误处理
     return Promise.reject(error)
