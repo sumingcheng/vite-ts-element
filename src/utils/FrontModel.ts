@@ -52,10 +52,12 @@ function defineMetadataForBinding(serverPropertyTypeName: ServerPropertyType, se
 // 定义前端模型的抽象类
 export abstract class FrontModel {
   // 请求前的处理函数，子类可以重写
-  beforeGetRequestBody() {}
+  beforeGetRequestBody() {
+  }
 
   // 响应后的处理函数，子类可以重写
-  afterInitFromResponse() {}
+  afterInitFromResponse() {
+  }
 
   // 从响应初始化数据
   initFromResponse(res: object) {
@@ -72,8 +74,9 @@ export abstract class FrontModel {
     const resValue = _.get(res, metadataValue.serverPropertyPath)
     switch (metadataValue.serverPropertyTypeName) {
       case ServerPropertyType.NORMAL:
-        if (resValue)
+        if (resValue) {
           _.set(this, metadataValue.propertyName, resValue)
+        }
 
         break
       case ServerPropertyType.ARRAY:
@@ -133,8 +136,9 @@ export abstract class FrontModel {
           }
           break
         case ServerPropertyType.OBJECT:
-          if (propertyValue)
+          if (propertyValue) {
             _.set(requestBody, metadataValue.serverPropertyPath, propertyValue.getRequestBody())
+          }
 
           break
       }
@@ -155,7 +159,7 @@ export class FrontModelItem extends FrontModel {
 
   constructor() {
     super()
-    this.uniqueIndex = Symbol() // 创建唯一索引
+    this.uniqueIndex = Symbol('uniqueIndex') // 创建唯一索引
   }
 
   // 判断是否为相同的项
@@ -170,6 +174,6 @@ export class FrontModelItem extends FrontModel {
 
   // 刷新唯一索引
   refreshUniqueIndex() {
-    this.uniqueIndex = Symbol()
+    this.uniqueIndex = Symbol('uniqueIndex')
   }
 }

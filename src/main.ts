@@ -5,7 +5,7 @@ import router from '@/router'
 import i18n from '@/locales'
 
 // style
-import '@/assets/global/normalize.less'
+import '@/assets/less/normalize.less'
 import 'element-plus/dist/index.css'
 
 // mount
