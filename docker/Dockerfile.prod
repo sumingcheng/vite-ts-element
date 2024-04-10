@@ -5,7 +5,7 @@ FROM node:18.16.1-alpine as build-stage
 WORKDIR /vite-ts-element
 
 # 设置淘宝镜像源，加快依赖安装速度
-RUN npm config set registry https://registry.npmmirror.com
+RUN npm config set registry https://registry.npmjs.org/
 RUN npm install -g pnpm
 
 # 复制项目文件到容器中

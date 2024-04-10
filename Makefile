@@ -1,24 +1,52 @@
-# 定义变量
-IMAGE_NAME=vite-ts-element-nginx
+# Makefile
 
-# 默认目标
+# 获取当前 git 提交的短版本哈希
+VERSION := $(shell git rev-parse --short HEAD)
+
+# 配置变量
+SUFFIX ?= local
+IMAGE_TAG ?= v0.1.0.1
+IMAGE_NAME := vite-ts-element-nginx
+
+# 根据配置计算出的变量
+FULL_IMAGE_TAG := $(IMAGE_TAG)-$(SUFFIX)
+VITE_TS_ELEMENT_IMAGE := $(IMAGE_NAME):$(FULL_IMAGE_TAG)
+CONTAINER_NAME_PROD := $(IMAGE_NAME)-prod-$(SUFFIX)
+
+# 主目标：构建并运行容器
 all: build run
 
 # 构建 Docker 镜像
 build:
-	docker build -f ./docker/Dockerfile.prod -t $(IMAGE_NAME) .
+	@echo "检查镜像 $(VITE_TS_ELEMENT_IMAGE) 是否存在..."
+	@if docker images $(VITE_TS_ELEMENT_IMAGE) | grep -q $(FULL_IMAGE_TAG); then \
+		echo "镜像 $(FULL_IMAGE_TAG) 已存在，跳过构建步骤。"; \
+	else \
+		echo "正在构建镜像 $(VITE_TS_ELEMENT_IMAGE)..."; \
+		docker build --build-arg VERSION=$(VERSION) -t $(VITE_TS_ELEMENT_IMAGE) -f ./docker/Dockerfile.prod .; \
+	fi
 
-# 运行 Docker 容器
+# 运行容器
 run:
-	docker run -d -p 30001:80 $(IMAGE_NAME)
+	@echo "正在停止并移除任何已存在的容器 $(CONTAINER_NAME_PROD)..."
+	-docker stop $(CONTAINER_NAME_PROD) > /dev/null 2>&1
+	-docker rm $(CONTAINER_NAME_PROD) > /dev/null 2>&1
+	@echo "正在运行新容器 $(CONTAINER_NAME_PROD)..."
+	docker run -d --name $(CONTAINER_NAME_PROD) -p 30001:80 $(VITE_TS_ELEMENT_IMAGE)
 
-# 停止并移除 Docker 容器
+# 停止容器
 stop:
-	docker stop $(IMAGE_NAME)
-	docker rm $(IMAGE_NAME)
+	@echo "正在停止容器 $(CONTAINER_NAME_PROD)..."
+	-docker stop $(CONTAINER_NAME_PROD)
 
-# 清理操作，比如移除构建的镜像
+# 移除容器
+rm:
+	@echo "正在移除容器 $(CONTAINER_NAME_PROD)..."
+	-docker rm $(CONTAINER_NAME_PROD)
+
+# 清理操作：移除构建的镜像
 clean:
-	docker rmi $(IMAGE_NAME)
+	@echo "正在移除 Docker 镜像 $(VITE_TS_ELEMENT_IMAGE)..."
+	-docker rmi $(VITE_TS_ELEMENT_IMAGE)
 
-.PHONY: all build run stop clean
+.PHONY: all build run stop rm clean
