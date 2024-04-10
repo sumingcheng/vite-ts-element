@@ -43,6 +43,7 @@ stop:
 rm:
 	@echo "正在移除容器 $(CONTAINER_NAME_PROD)..."
 	-docker rm $(CONTAINER_NAME_PROD)
+	docker image prune -f
 
 # 清理操作：移除构建的镜像
 clean:
