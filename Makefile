@@ -32,7 +32,7 @@ run: build
 	-docker stop $(CONTAINER_NAME_PROD) > /dev/null 2>&1
 	-docker rm $(CONTAINER_NAME_PROD) > /dev/null 2>&1
 	@echo "正在运行新容器 $(CONTAINER_NAME_PROD)..."
-	docker run -d --name $(CONTAINER_NAME_PROD) -p 30001:80 $(VITE_TS_ELEMENT_IMAGE)
+	docker run -d --name $(CONTAINER_NAME_PROD) -p 30001:30001 $(VITE_TS_ELEMENT_IMAGE)
 
 # 停止容器
 stop:
