@@ -19,15 +19,15 @@ all: build run
 # 构建 Docker 镜像
 build:
 	@echo "检查镜像 $(VITE_TS_ELEMENT_IMAGE) 是否存在..."
-	@if docker images $(VITE_TS_ELEMENT_IMAGE) | grep -q $(FULL_IMAGE_TAG); then \
-		echo "镜像 $(FULL_IMAGE_TAG) 已存在，跳过构建步骤。"; \
-	else \
-		echo "正在构建镜像 $(VITE_TS_ELEMENT_IMAGE)..."; \
+	@if ! docker images $(VITE_TS_ELEMENT_IMAGE) | grep -q $(FULL_IMAGE_TAG); then \
+		echo "镜像 $(FULL_IMAGE_TAG) 不存在，开始构建..."; \
 		docker build --build-arg VERSION=$(VERSION) -t $(VITE_TS_ELEMENT_IMAGE) -f ./docker/Dockerfile.prod .; \
+	else \
+		echo "镜像 $(FULL_IMAGE_TAG) 已存在，跳过构建步骤。"; \
 	fi
 
 # 运行容器
-run:
+run: build
 	@echo "正在停止并移除任何已存在的容器 $(CONTAINER_NAME_PROD)..."
 	-docker stop $(CONTAINER_NAME_PROD) > /dev/null 2>&1
 	-docker rm $(CONTAINER_NAME_PROD) > /dev/null 2>&1
