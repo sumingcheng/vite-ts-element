@@ -25,4 +25,4 @@ COPY --from=build-stage /vite-ts-element/dist /usr/share/nginx/html
 EXPOSE 30001
 
 # 自定义 Nginx 配置
-COPY nginx.prod.conf /etc/nginx/nginx.conf
+COPY config/nginx.prod.conf /etc/nginx/nginx.conf
