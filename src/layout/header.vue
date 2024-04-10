@@ -13,6 +13,7 @@ const language = computed(() => {
 })
 
 const data = ref('')
+
 async function getDataFromAPI() {
   data.value = await getData()
   console.log(toRaw(data.value))

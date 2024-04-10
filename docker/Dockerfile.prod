@@ -1,0 +1,28 @@
+# 构建阶段
+FROM node:18.16.1-alpine as build-stage
+
+# 设置工作目录
+WORKDIR /app
+
+# 设置淘宝镜像源，加快依赖安装速度
+RUN npm config set registry https://registry.npmmirror.com/ && \
+    npm install -g pnpm
+
+# 复制项目文件到容器中
+COPY . .
+
+# 安装依赖并构建项目
+RUN pnpm install && \
+    pnpm run build
+
+# 部署阶段
+FROM nginx:alpine as production-stage
+
+# 从构建阶段复制构建结果到 Nginx 目录
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+# 暴露 30001 端口
+EXPOSE 30001
+
+# 自定义 Nginx 配置
+COPY nginx.prod.conf /etc/nginx/nginx.conf
