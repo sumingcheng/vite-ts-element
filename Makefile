@@ -54,6 +54,9 @@ clean:
 	@docker rmi $(VITE_TS_ELEMENT_IMAGE) || true
 	@echo "正在清理特定悬挂资源，以避免影响其他项目..."
 
+load:
+	@docker load -i $(IMAGE_NAME)_$(FULL_IMAGE_TAG).tar
+
 save:
 	@docker save -o $(IMAGE_NAME)_$(FULL_IMAGE_TAG).tar $(VITE_TS_ELEMENT_IMAGE)
 
