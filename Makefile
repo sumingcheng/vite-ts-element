@@ -45,14 +45,21 @@ rm:
 	@echo "正在移除容器 $(CONTAINER_NAME_PROD)..."
 	@docker rm $(CONTAINER_NAME_PROD) || true
 
+# 移除镜像
 rm-image:
 	@echo "正在移除 Docker 镜像 $(VITE_TS_ELEMENT_IMAGE)..."
 	@docker rmi $(VITE_TS_ELEMENT_IMAGE) || true
 
+# 清理资源
 clean:
-	@echo "正在移除 Docker 镜像 $(VITE_TS_ELEMENT_IMAGE)..."
-	@docker rmi $(VITE_TS_ELEMENT_IMAGE) || true
-	@echo "正在清理特定悬挂资源，以避免影响其他项目..."
+	@echo "正在清理未使用的 Docker 容器..."
+	@docker container prune -f
+	@echo "正在清理未使用的 Docker 网络..."
+	@docker network prune -f
+	@echo "正在清理未使用的 Docker 卷..."
+	@docker volume prune -f
+	@echo "正在清理所有悬挂的 Docker 镜像..."
+	@docker image prune -f
 
 load:
 	@docker load -i $(IMAGE_NAME)_$(FULL_IMAGE_TAG).tar
