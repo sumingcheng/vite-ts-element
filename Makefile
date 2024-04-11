@@ -45,6 +45,10 @@ rm:
 	@echo "正在移除容器 $(CONTAINER_NAME_PROD)..."
 	@docker rm $(CONTAINER_NAME_PROD) || true
 
+rm-image:
+	@echo "正在移除 Docker 镜像 $(VITE_TS_ELEMENT_IMAGE)..."
+	@docker rmi $(VITE_TS_ELEMENT_IMAGE) || true
+
 clean:
 	@echo "正在移除 Docker 镜像 $(VITE_TS_ELEMENT_IMAGE)..."
 	@docker rmi $(VITE_TS_ELEMENT_IMAGE) || true
