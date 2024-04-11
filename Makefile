@@ -45,11 +45,14 @@ rm:
 	@echo "正在移除容器 $(CONTAINER_NAME_PROD)..."
 	@docker rm $(CONTAINER_NAME_PROD) || true
 
-# 清理操作：移除构建的镜像和悬挂资源，更精细地处理清理操作
 clean:
 	@echo "正在移除 Docker 镜像 $(VITE_TS_ELEMENT_IMAGE)..."
 	@docker rmi $(VITE_TS_ELEMENT_IMAGE) || true
 	@echo "正在清理特定悬挂资源，以避免影响其他项目..."
+
+save:
+	@docker save -o $(IMAGE_NAME)_$(FULL_IMAGE_TAG).tar $(VITE_TS_ELEMENT_IMAGE)
+
 
 .PHONY: all build run stop rm clean
 
