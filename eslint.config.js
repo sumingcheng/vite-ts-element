@@ -13,6 +13,7 @@ export default antfu(
       'vue/max-attributes-per-line': ['error', { singleline: 5, multiline: 1 }],
       'antfu/top-level-function': 'off',
       'arrow-parens': 'off',
+      'vue/singleline-html-element-content-newline': 'off',
     },
   },
 )
