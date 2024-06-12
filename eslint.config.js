@@ -11,6 +11,8 @@ export default antfu(
       'style/brace-style': ['error', '1tbs', { allowSingleLine: true }],
       'vue/custom-event-name-casing': ['error', 'kebab-case'],
       'vue/max-attributes-per-line': ['error', { singleline: 5, multiline: 1 }],
+      'antfu/top-level-function': 'off',
+      'arrow-parens': 'off',
     },
   },
 )
